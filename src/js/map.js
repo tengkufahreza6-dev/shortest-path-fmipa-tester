@@ -65,7 +65,7 @@ let activeTujuanNodeId = null;
 let activeCallbackSetAsal = null;
 let activeCallbackSetTujuan = null;
 let userPinIdCounter = 0;
-
+let routeAnimationTimer = null;
 // =====================================================================
 // HIGHLIGHT
 // =====================================================================
@@ -79,29 +79,24 @@ export function updateSelectionHighlight(asalId, tujuanId) {
   const allNodes = graphData.nodes;
 
   function makeHighlightMarker(nodeId, color, iconChar, label) {
-    if (!nodeId) return;
-    const node = allNodes[nodeId];
-    if (!node || node.x === undefined || node.y === undefined) return;
+  if (!nodeId) return;
+  const node = allNodes[nodeId];
+  if (!node || node.x === undefined || node.y === undefined) return;
 
-    const latLng = svgToLatLng(node.x, node.y);
-    const icon = L.divIcon({
-      className: 'fmipa-selected-pin',
-      html: `
-        <div style="
-          display: flex; align-items: center; justify-content: center;
-          width: 40px; height: 40px; border-radius: 50%;
-          background: ${color}; border: 3px solid #ffffff;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-          color: #ffffff; font-size: 16px; font-weight: bold;
-        ">${iconChar}</div>
-      `,
-      iconSize: [40, 40],
-      iconAnchor: [20, 20],
-    });
+  const latLng = svgToLatLng(node.x, node.y);
 
-    L.marker(latLng, { icon, interactive: false, zIndexOffset: 1000 })
-      .addTo(highlightLayer);
-  }
+  // Highlight ring (circle lebih besar)
+  const ring = L.circleMarker(latLng, {
+    radius: 18,
+    fillColor: color,
+    color: '#ffffff',
+    weight: 3,
+    opacity: 1,
+    fillOpacity: 0.9,
+  });
+  ring.bindTooltip(label, { permanent: false, direction: 'top' });
+  ring.addTo(highlightLayer);
+}
 
   if (activeAsalNodeId) {
     const n = allNodes[activeAsalNodeId];
@@ -227,7 +222,10 @@ export function initMap(containerId = 'map-container', callbacks = {}) {
       updateZoomConstraints();
     }
   }, 250);
-
+  // Expose ke global untuk keperluan export
+if (typeof window !== 'undefined') {
+  window._fmipaMap = mapInstance;
+}
   return mapInstance;
 }
 
@@ -244,22 +242,14 @@ export function createUserPin(lat, lng) {
   const pinId = `pin_${Date.now()}_${userPinIdCounter}`;
   const pos = latLngToSvg(lat, lng);
 
-  const pinIcon = L.divIcon({
-    className: 'fmipa-user-pin',
-    html: `
-      <div style="
-        display: flex; align-items: center; justify-content: center;
-        width: 32px; height: 32px; border-radius: 50%;
-        background: #C54F2D; border: 2px solid #FFFDF7;
-        box-shadow: 0 4px 10px rgba(197, 79, 45, 0.5);
-        color: #FFFDF7; font-size: 14px; cursor: pointer;
-      ">📍</div>
-    `,
-    iconSize: [32, 32],
-    iconAnchor: [16, 16],
-  });
-
-  const marker = L.marker([lat, lng], { icon: pinIcon }).addTo(userPinLayer);
+  const marker = L.circleMarker([lat, lng], {
+  radius: 10,
+  fillColor: '#C54F2D',
+  color: '#FFFDF7',
+  weight: 3,
+  opacity: 1,
+  fillOpacity: 0.95,
+}).addTo(userPinLayer);
 
   marker.bindPopup(`
     <div style="font-family: inherit; font-size: 12px; min-width: 200px;">
@@ -310,22 +300,15 @@ export function renderNeutralMarkers(callbacks = {}) {
     const latLng = svgToLatLng(node.x, node.y);
     const dropdownValue = NODE_KEY_TO_DROPDOWN[key] || '';
 
-    const neutralIcon = L.divIcon({
-      className: 'fmipa-neutral-pin',
-      html: `
-        <div style="
-          display: flex; align-items: center; justify-content: center;
-          width: 32px; height: 32px; border-radius: 50%;
-          background: #475569; border: 2px solid #ffffff;
-          box-shadow: 0 3px 8px rgba(0,0,0,0.35);
-          color: #ffffff; font-size: 14px; cursor: pointer;
-        " title="${node.label || key}">🏛️</div>
-      `,
-      iconSize: [32, 32],
-      iconAnchor: [16, 16],
-    });
-
-    const marker = L.marker(latLng, { icon: neutralIcon }).addTo(neutralMarkersLayer);
+    // Pakai circleMarker (support leaflet-image)
+const marker = L.circleMarker(latLng, {
+  radius: 14,
+  fillColor: '#475569',
+  color: '#ffffff',
+  weight: 2,
+  opacity: 1,
+  fillOpacity: 0.95,
+}).addTo(neutralMarkersLayer);
 
     const popupHtml = `
       <div style="font-family: inherit; font-size: 12px; min-width: 190px;">
@@ -505,67 +488,124 @@ export function resetBuildingInfoPanel() {
 // =====================================================================
 // DRAW ROUTE
 // =====================================================================
+// =====================================================================
+// DRAW ROUTE — dengan animasi
+// =====================================================================
+// =====================================================================
+// DRAW ROUTE — dengan animasi + tunggu zoom selesai
+// =====================================================================
 export function drawRoute(steps = []) {
   clearRoute();
   if (!steps || steps.length < 2) return;
 
   const polylineCoords = steps.map((s) => svgToLatLng(s.x, s.y));
 
+  // 1. Glow background
   routeGlowLayer.addLayer(L.polyline(polylineCoords, {
-    color: '#4ade80', weight: 12, opacity: 0.65, lineCap: 'round', lineJoin: 'round',
+    color: '#4ade80', weight: 12, opacity: 0.4, lineCap: 'round', lineJoin: 'round',
   }));
-  routeCoreLayer.addLayer(L.polyline(polylineCoords, {
+
+  // 2. Garis core (akan dianimasikan)
+  const coreLine = L.polyline([polylineCoords[0]], {
     color: '#16a34a', weight: 6, opacity: 0.95, lineCap: 'round', lineJoin: 'round',
-  }));
-  routeCoreLayer.addLayer(L.polyline(polylineCoords, {
-    color: '#ffffff', weight: 2, opacity: 0.9, dashArray: '6, 10',
-  }));
-
-  steps.forEach((step, idx) => {
-    const latLng = svgToLatLng(step.x, step.y);
-    const isStart = idx === 0;
-    const isEnd = idx === steps.length - 1;
-
-    if (!isStart && !isEnd && !step.isBuilding) {
-      const dotIcon = L.divIcon({
-        className: 'fmipa-waypoint-dot',
-        html: `<div style="width:10px;height:10px;border-radius:50%;background:#eab308;border:2px solid #fff;"></div>`,
-        iconSize: [10, 10],
-        iconAnchor: [5, 5],
-      });
-      routeMarkersLayer.addLayer(L.marker(latLng, { icon: dotIcon }));
-      return;
-    }
-
-    let bgColor = '#eab308';
-    let iconChar = '🟡';
-    if (isStart) { bgColor = '#dc2626'; iconChar = '🔴'; }
-    else if (isEnd) { bgColor = '#2563eb'; iconChar = '🔵'; }
-
-    const pinIcon = L.divIcon({
-      className: 'fmipa-route-pin',
-      html: `<div style="
-        display: flex; align-items: center; justify-content: center;
-        width: 32px; height: 32px; border-radius: 50%;
-        background: ${bgColor}; border: 2px solid #fff;
-        color: #fff; font-size: 13px;
-      ">${iconChar}</div>`,
-      iconSize: [32, 32],
-      iconAnchor: [16, 16],
-    });
-
-    routeMarkersLayer.addLayer(L.marker(latLng, { icon: pinIcon }));
   });
+  routeCoreLayer.addLayer(coreLine);
 
+  // 3. Garis dashed putih (akan dianimasikan)
+  const dashLine = L.polyline([polylineCoords[0]], {
+    color: '#ffffff', weight: 2, opacity: 0.9, dashArray: '6, 10',
+  });
+  routeCoreLayer.addLayer(dashLine);
+
+  // 4. Zoom peta ke bounds rute
   const routeBounds = L.polyline(polylineCoords).getBounds();
   mapInstance.fitBounds(routeBounds, {
     padding: [120, 120],
     maxZoom: -2,
     animate: true,
   });
+
+  // 5. Setelah zoom selesai, baru animasi garis
+  mapInstance.once('moveend', () => {
+    startRouteAnimation(polylineCoords, coreLine, dashLine, steps);
+  });
 }
 
+// =====================================================================
+// ANIMASI GARIS
+// =====================================================================
+function startRouteAnimation(polylineCoords, coreLine, dashLine, steps) {
+  const totalPoints = polylineCoords.length;
+  const duration = 2500;   // ← 2,5 detik (bisa diubah)
+  const intervalPerPoint = Math.max(20, duration / totalPoints);
+  let currentIdx = 0;
+
+  routeAnimationTimer = setInterval(() => {
+    currentIdx++;
+    if (currentIdx >= totalPoints) {
+      clearInterval(routeAnimationTimer);
+      routeAnimationTimer = null;
+      renderRouteMarkers(steps);
+      return;
+    }
+    const partial = polylineCoords.slice(0, currentIdx + 1);
+    coreLine.setLatLngs(partial);
+    dashLine.setLatLngs(partial);
+  }, intervalPerPoint);
+}
+
+// =====================================================================
+// RENDER MARKER RUTE
+// =====================================================================
+function renderRouteMarkers(steps) {
+  steps.forEach((step, idx) => {
+    const latLng = svgToLatLng(step.x, step.y);
+    const isStart = idx === 0;
+    const isEnd = idx === steps.length - 1;
+
+    // Waypoint biasa (dot kuning)
+    if (!isStart && !isEnd && !step.isBuilding) {
+      const dot = L.circleMarker(latLng, {
+        radius: 5,
+        fillColor: '#eab308',
+        color: '#ffffff',
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 1,
+      });
+      routeMarkersLayer.addLayer(dot);
+      return;
+    }
+
+    // Marker asal / tujuan
+    let color = '#eab308';
+    if (isStart) color = '#dc2626';
+    else if (isEnd) color = '#2563eb';
+
+    const pin = L.circleMarker(latLng, {
+      radius: 12,
+      fillColor: color,
+      color: '#ffffff',
+      weight: 3,
+      opacity: 1,
+      fillOpacity: 1,
+    });
+
+    // Popup dengan label nama
+    pin.bindPopup(`<strong>${step.name || step.id}</strong>`);
+
+    routeMarkersLayer.addLayer(pin);
+  });
+}
+
+// =====================================================================
+// CLEAR ROUTE
+// =====================================================================
 export function clearRoute() {
+  if (routeAnimationTimer) {
+    clearInterval(routeAnimationTimer);
+    routeAnimationTimer = null;
+  }
   if (routeGlowLayer) routeGlowLayer.clearLayers();
   if (routeCoreLayer) routeCoreLayer.clearLayers();
   if (routeMarkersLayer) routeMarkersLayer.clearLayers();
