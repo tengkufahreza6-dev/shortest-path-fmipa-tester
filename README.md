@@ -25,7 +25,11 @@ Sistem pencarian rute terpendek di area FMIPA Universitas Negeri Medan berbasis 
 
 ## 👥 Tim
 - Tengku Fahreza
-- [Anggota lain]
+- Umar Hidayat
+- Muhammad Ridho Reyhan
+- Siti Zulayka Maulida Amali
+- Rachel Aulia
+- Mutiara Chalista Tarigan
 
 ## 🔗 Live Demo
 https://tengkufahreza6-dev.github.io/shortest-path-fmipa-tester/

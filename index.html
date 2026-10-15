@@ -3,78 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="2; url=./public/assets/index.html">
-    <title>FMIPA Map - Mengalihkan</title>
+    <meta http-equiv="refresh" content="5; url=./public/assets/index.html">
+    <title>FMIPA Map — Memuat Aplikasi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Mengatur dasar halaman agar elemen berada di tengah */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            height: 100vh;
+            padding: 20px;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #fbf8ef;
+            background-image: 
+                radial-gradient(at 20% 30%, rgba(197, 79, 45, 0.08) 0%, transparent 50%),
+                radial-gradient(at 80% 70%, rgba(148, 179, 138, 0.10) 0%, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(238, 191, 67, 0.05) 0%, transparent 60%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #333;
+            color: #292524;
+            overflow: hidden;
+            position: relative;
         }
 
-        /* Wadah utama kartu */
+        /* Dekorasi pola titik halus di background */
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(210, 190, 145, 0.15) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
         .container {
+            position: relative;
+            z-index: 1;
             text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px 60px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(5px);
+            background: #FFFDF7;
+            padding: 48px 56px;
+            border-radius: 24px;
+            border: 1px solid #E4D5B6;
+            box-shadow: 
+                0 20px 40px -12px rgba(197, 79, 45, 0.12),
+                0 8px 16px -8px rgba(0, 0, 0, 0.06);
+            max-width: 420px;
+            width: 100%;
+            animation: containerIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Judul Aplikasi */
+        @keyframes containerIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Logo */
+        .logo-wrapper {
+            width: 88px;
+            height: 88px;
+            margin: 0 auto 24px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #C54F2D 0%, #a84022 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 12px 24px -8px rgba(197, 79, 45, 0.45),
+                0 0 0 8px rgba(197, 79, 45, 0.08);
+            animation: logoPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 
+                    0 12px 24px -8px rgba(197, 79, 45, 0.45),
+                    0 0 0 8px rgba(197, 79, 45, 0.08);
+            }
+            50% {
+                transform: scale(1.03);
+                box-shadow: 
+                    0 16px 32px -8px rgba(197, 79, 45, 0.55),
+                    0 0 0 12px rgba(197, 79, 45, 0.12);
+            }
+        }
+
+        .logo-wrapper svg {
+            width: 44px;
+            height: 44px;
+            color: #FFFDF7;
+            stroke-width: 1.8;
+        }
+
+        /* Judul */
         h1 {
-            margin: 0 0 10px 0;
-            font-size: 24px;
-            color: #2c3e50;
-            letter-spacing: 1px;
+            margin: 0 0 8px 0;
+            font-size: 26px;
+            font-weight: 800;
+            color: #292524;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
         }
 
-        /* Teks Memuat */
-        p {
-            margin: 0 0 25px 0;
-            font-size: 16px;
-            color: #7f8c8d;
+        /* Subtitle */
+        .subtitle {
+            margin: 0 0 4px 0;
+            font-size: 14px;
+            font-weight: 500;
+            color: #78716c;
         }
 
-        /* Animasi Spinner Loading */
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 16px 0 28px;
+            padding: 5px 12px;
+            background: #E8F0E4;
+            color: #657F5C;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            margin: 0 auto;
-            animation: spin 1s linear infinite;
+            background: #657F5C;
+            animation: dotBlink 1.4s ease-in-out infinite;
         }
 
-        /* Logika rotasi spinner */
+        @keyframes dotBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Progress bar */
+        .progress-wrapper {
+            margin: 0 0 20px 0;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 6px;
+            background: #F2E7CB;
+            border-radius: 100px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #C54F2D 0%, #EEBF43 100%);
+            border-radius: 100px;
+            width: 0%;
+            animation: progressGrow 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            animation: shimmer 1.2s infinite;
+        }
+
+        @keyframes progressGrow {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        @keyframes shimmer {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+
+        /* Teks loading */
+        .loading-text {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: #57534e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .spinner {
+            width: 14px;
+            height: 14px;
+            border: 2px solid #E4D5B6;
+            border-top-color: #C54F2D;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            flex-shrink: 0;
+        }
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer kecil */
+        .footer-note {
+            margin: 24px 0 0 0;
+            font-size: 11px;
+            color: #a8a29e;
+            font-weight: 500;
+        }
+
+        .footer-note strong {
+            color: #78716c;
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 36px 28px;
+                border-radius: 20px;
+            }
+            .logo-wrapper {
+                width: 72px;
+                height: 72px;
+                border-radius: 18px;
+            }
+            .logo-wrapper svg {
+                width: 36px;
+                height: 36px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+        }
+
+        /* Fade out saat redirect */
+        body.is-leaving {
+            transition: opacity 0.4s ease;
+            opacity: 0;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <!-- Logo -->
+        <div class="logo-wrapper">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 20l-5.447-2.724A2 2 0 012 15.488V8.512a2 2 0 011.553-1.788L9 4m0 16V4m0 16l6 3V7m0 0l5.447-2.724A2 2 0 0022 6.064v6.872a2 2 0 01-1.553 1.788L15 17"
+                />
+            </svg>
+        </div>
+
+        <!-- Judul -->
         <h1>FMIPA Map</h1>
-        <p>Memuat aplikasi, mohon tunggu...</p>
-        <div class="spinner"></div>
+        <p class="subtitle">Universitas Negeri Medan</p>
+
+        <!-- Badge status -->
+        <span class="badge">
+            <span class="badge-dot"></span>
+            Memuat Aplikasi
+        </span>
+
+        <!-- Progress bar -->
+        <div class="progress-wrapper">
+            <div class="progress-track">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Loading text -->
+        <p class="loading-text">
+            <span class="spinner"></span>
+            Menyiapkan peta & data...
+        </p>
+
+        <!-- Footer -->
+        <p class="footer-note">
+            Sistem navigasi rute terpendek<br>
+            <strong>FMIPA UNIMED</strong>
+        </p>
     </div>
 
     <script>
-        // Mengantisipasi jika meta refresh tidak bekerja di browser tertentu
+        // Redirect setelah 2 detik (sinkron dengan progress bar)
         setTimeout(function() {
-            window.location.href = './public/assets/index.html';
-        }, 2000); // Dijeda 2 detik agar animasi loading sempat terlihat
+            document.body.classList.add('is-leaving');
+            // Tunggu animasi fade selesai
+            setTimeout(function() {
+                window.location.href = './public/assets/index.html';
+            }, 300);
+        }, 5000);
     </script>
 </body>
 </html>
