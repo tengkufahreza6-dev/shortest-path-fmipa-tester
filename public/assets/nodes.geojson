@@ -101,7 +101,7 @@
 { "type": "Feature", "properties": { "fid": 96, "node_id": "lab_fisika", "name": "Laboratorium Fisika(08)", "type": "building" }, "geometry": { "type": "Point", "coordinates": [ 5847.186970630968062, -2520.313610099516154 ] } },
 { "type": "Feature", "properties": { "fid": 97, "node_id": "building_bersama", "name": "Gedung Kuliah Bersama", "type": "building" }, "geometry": { "type": "Point", "coordinates": [ 5086.349371977656119, -3023.320588003369721 ] } },
 { "type": "Feature", "properties": { "fid": 98, "node_id": "lab_bio_new", "name": "Lab Biologi Baru", "type": "building" }, "geometry": { "type": "Point", "coordinates": [ 3931.647818927929166, -3890.137644265356357 ] } },
-{ "type": "Feature", "properties": { "fid": 99, "node_id": "lab_bio-old", "name": "Lab Biologi_lama", "type": "building" }, "geometry": { "type": "Point", "coordinates": [ 4203.714486221837433, -3923.355086202403072 ] } },
+{ "type": "Feature", "properties": { "fid": 99, "node_id": "lab_bio-old", "name": "Lab Biologi lama", "type": "building" }, "geometry": { "type": "Point", "coordinates": [ 4203.714486221837433, -3923.355086202403072 ] } },
 { "type": "Feature", "properties": { "fid": 100, "node_id": "lab_math", "name": "Lab Matematika(09)", "type": "building" }, "geometry": { "type": "Point", "coordinates": [ 4762.08386735410113, -4448.507025397620964 ] } }
 ]
 }

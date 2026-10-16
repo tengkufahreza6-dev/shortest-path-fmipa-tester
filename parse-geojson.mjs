@@ -118,6 +118,7 @@ Object.keys(nodes).forEach(id => {
       x: n.x,
       y: n.y,
       isBuilding: true,
+      category: n.category,
     };
   } else {
     waypoints[id] = {
@@ -125,6 +126,7 @@ Object.keys(nodes).forEach(id => {
       x: n.x,
       y: n.y,
       label: n.label,
+      category: n.category,
     };
   }
 });

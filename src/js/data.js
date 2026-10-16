@@ -10,84 +10,96 @@ export const graphNodes = {
       "label": "Gedung Syawal (01)",
       "x": 7055.669143959722,
       "y": -3584.8535350344036,
-      "isBuilding": true
+      "isBuilding": true,
+      "category": "Gedung FMIPA"
     },
     "building_bilingual": {
       "svgId": "building_bilingual",
       "label": "Gedung Bilingual(06)",
       "x": 7055.669143959722,
       "y": -4524.4326069680155,
-      "isBuilding": true
+      "isBuilding": true,
+      "category": "Gedung FMIPA"
     },
     "lab_kimia": {
       "svgId": "lab_kimia",
       "label": "Laboratorium kimia(07)",
       "x": 5855.095885377883,
       "y": -4108.423691280238,
-      "isBuilding": true
+      "isBuilding": true,
+      "category": "Gedung FMIPA"
     },
     "building_matematika": {
       "svgId": "building_matematika",
       "label": "Gedung Matematika(02)",
       "x": 7451.114881305519,
       "y": -4065.715551646892,
-      "isBuilding": true
+      "isBuilding": true,
+      "category": "Gedung FMIPA"
     },
     "building_kimia": {
       "svgId": "building_kimia",
       "label": "Gedung Kimia(03)",
       "x": 6617.515266980579,
       "y": -3912.282605556723,
-      "isBuilding": true
+      "isBuilding": true,
+      "category": "Gedung FMIPA"
     },
     "building_biologi": {
       "svgId": "building_biologi",
       "label": "Gedung Biologi(05)",
       "x": 7503.313718635163,
       "y": -3050.2108981428833,
-      "isBuilding": true
+      "isBuilding": true,
+      "category": "Gedung FMIPA"
     },
     "building_fisika": {
       "svgId": "building_fisika",
       "label": "Gedugn Fisika(04)",
       "x": 6593.788522739829,
       "y": -3164.099270498473,
-      "isBuilding": true
+      "isBuilding": true,
+      "category": "Gedung FMIPA"
     },
     "lab_fisika": {
       "svgId": "lab_fisika",
       "label": "Laboratorium Fisika(08)",
       "x": 5847.186970630968,
       "y": -2520.313610099516,
-      "isBuilding": true
+      "isBuilding": true,
+      "category": "Gedung FMIPA"
     },
     "building_bersama": {
       "svgId": "building_bersama",
       "label": "Gedung Kuliah Bersama",
       "x": 5086.349371977656,
       "y": -3023.3205880033697,
-      "isBuilding": true
+      "isBuilding": true,
+      "category": "Gedung FMIPA"
     },
     "lab_bio_new": {
       "svgId": "lab_bio_new",
       "label": "Lab Biologi Baru",
       "x": 3931.647818927929,
       "y": -3890.1376442653564,
-      "isBuilding": true
+      "isBuilding": true,
+      "category": "Gedung FMIPA"
     },
     "lab_bio-old": {
       "svgId": "lab_bio-old",
-      "label": "Lab Biologi_lama",
+      "label": "Lab Biologi lama",
       "x": 4203.714486221837,
       "y": -3923.355086202403,
-      "isBuilding": true
+      "isBuilding": true,
+      "category": "Gedung FMIPA"
     },
     "lab_math": {
       "svgId": "lab_math",
       "label": "Lab Matematika(09)",
       "x": 4762.083867354101,
       "y": -4448.507025397621,
-      "isBuilding": true
+      "isBuilding": true,
+      "category": "Gedung FMIPA"
     }
   },
   "waypoints": {
@@ -95,529 +107,617 @@ export const graphNodes = {
       "id": "pintu_bilingual",
       "x": 7184.808863956405,
       "y": -4527.304233150866,
-      "label": "Pintu Gedung Bilingual"
+      "label": "Pintu Gedung Bilingual",
+      "category": "Pintu Outdoor"
     },
     "pintu_matematika_outdoor": {
       "id": "pintu_matematika_outdoor",
       "x": 7706.875004434235,
       "y": -4180.897806089872,
-      "label": "Pintu Gedung Matematika Outdoor"
+      "label": "Pintu Gedung Matematika Outdoor",
+      "category": "Pintu Outdoor"
     },
     "pintu_matematika_indoor": {
       "id": "pintu_matematika_indoor",
       "x": 7338.9392531662,
       "y": -3850.688301043684,
-      "label": "Pintu Gedung Matematika Indoor"
+      "label": "Pintu Gedung Matematika Indoor",
+      "category": "Pintu Indoor"
     },
     "pintu_biologi_outdoor": {
       "id": "pintu_biologi_outdoor",
       "x": 7793.2198760178035,
       "y": -2898.4398077340015,
-      "label": "Pintu Gedung Biologi outdoor"
+      "label": "Pintu Gedung Biologi outdoor",
+      "category": "Pintu Outdoor"
     },
     "pintu_biologi_indoor": {
       "id": "pintu_biologi_indoor",
       "x": 7336.02027390881,
       "y": -3303.927426121514,
-      "label": "Pintu Gedung Biologi Indoor"
+      "label": "Pintu Gedung Biologi Indoor",
+      "category": "Pintu Indoor"
     },
     "pintu_fisika_outdoor": {
       "id": "pintu_fisika_outdoor",
       "x": 6534.894938795014,
       "y": -2965.747469085773,
-      "label": "Pintu Gedung Fisika Outdoor"
+      "label": "Pintu Gedung Fisika Outdoor",
+      "category": "Pintu Outdoor"
     },
     "pintu_fisika_indoor": {
       "id": "pintu_fisika_indoor",
       "x": 6797.558983094618,
       "y": -3292.4358741834058,
-      "label": "Pintu Gedung Fisika Indoor"
+      "label": "Pintu Gedung Fisika Indoor",
+      "category": "Pintu Indoor"
     },
     "pintu_kimia_indoor": {
       "id": "pintu_kimia_indoor",
       "x": 6789.35073171026,
       "y": -3848.955318043191,
-      "label": "Pintu Gedung Kimia Indoor"
+      "label": "Pintu Gedung Kimia Indoor",
+      "category": "Pintu Indoor"
     },
     "pintu_kimia_outdoor": {
       "id": "pintu_kimia_outdoor",
       "x": 6534.894938795019,
       "y": -4087.8154333281445,
-      "label": "Pintu Gedung Kimia Outdoor"
+      "label": "Pintu Gedung Kimia Outdoor",
+      "category": "Pintu Outdoor"
     },
     "pintu_syawal_outdoor_timur": {
       "id": "pintu_syawal_outdoor_timur",
       "x": 7452.577443566761,
       "y": -3575.6205469439155,
-      "label": "Pintu Gedung Syawal Outdoor Timur"
+      "label": "Pintu Gedung Syawal Outdoor Timur",
+      "category": "Pintu Outdoor"
     },
     "pintu_syawal_outdoor_barat": {
       "id": "pintu_syawal_outdoor_barat",
       "x": 6671.9727369138745,
       "y": -3570.695596113296,
-      "label": "Pintu Gedung Syawal Outdoor Barat"
+      "label": "Pintu Gedung Syawal Outdoor Barat",
+      "category": "Pintu Outdoor"
     },
     "pintu_syawal_outdoor_selatan": {
       "id": "pintu_syawal_outdoor_selatan",
       "x": 7136.559765268799,
       "y": -3958.9458865936485,
-      "label": "Pintu Gedung Syawal Outdoor Selatan"
+      "label": "Pintu Gedung Syawal Outdoor Selatan",
+      "category": "Pintu Outdoor"
     },
     "pintu_lab_kimia_outdoor": {
       "id": "pintu_lab_kimia_outdoor",
       "x": 5861.818325277286,
       "y": -3975.3623893623753,
-      "label": "Pintu Utama Lab Kimia Outdoor"
+      "label": "Pintu Utama Lab Kimia Outdoor",
+      "category": "Pintu Outdoor"
     },
     "pintu_lab_matematika_outdoor_1": {
       "id": "pintu_lab_matematika_outdoor_1",
       "x": 4964.656448966452,
       "y": -4364.433504981163,
-      "label": "Pintu Lab Matematika Outdoor 1"
+      "label": "Pintu Lab Matematika Outdoor 1",
+      "category": "Pintu Outdoor"
     },
     "pintu_lab_matematika_outdoor_2": {
       "id": "pintu_lab_matematika_outdoor_2",
       "x": 4544.393978087086,
       "y": -4343.09205138182,
-      "label": "Pintu Lab Matematika Outdoor 2"
+      "label": "Pintu Lab Matematika Outdoor 2",
+      "category": "Pintu Outdoor"
     },
     "pintu_lab_biologi_lama_outdoor": {
       "id": "pintu_lab_biologi_lama_outdoor",
       "x": 4330.979442093657,
       "y": -3885.0716241343857,
-      "label": "Pintu Lab Biologi Lama Outdoor"
+      "label": "Pintu Lab Biologi Lama Outdoor",
+      "category": "Pintu Outdoor"
     },
     "pintu_lab_biologi_baru_outdoor": {
       "id": "pintu_lab_biologi_baru_outdoor",
       "x": 4031.378266564422,
       "y": -3780.0060064145473,
-      "label": "Pintu Lab Biologi Baru Outdoor"
+      "label": "Pintu Lab Biologi Baru Outdoor",
+      "category": "Pintu Outdoor"
     },
     "pintu_bersama_outdoor_selatan": {
       "id": "pintu_bersama_outdoor_selatan",
       "x": 5019.651733241683,
       "y": -3514.0586615612,
-      "label": "Pintu Gedung Bersama Outdoor Selatan"
+      "label": "Pintu Gedung Bersama Outdoor Selatan",
+      "category": "Pintu Outdoor"
     },
     "pintu_bersama_outdoor_barat_daya": {
       "id": "pintu_bersama_outdoor_barat_daya",
       "x": 4545.214803225524,
       "y": -3514.0586615612,
-      "label": "Pintu Gedung Bersama Outdoor Barat Daya"
+      "label": "Pintu Gedung Bersama Outdoor Barat Daya",
+      "category": "Pintu Outdoor"
     },
     "pintu_bersama_outdoor_utara": {
       "id": "pintu_bersama_outdoor_utara",
       "x": 5020.0621458109,
       "y": -2612.7926595581844,
-      "label": "Pintu Gedung Bersama Outdoor Utara"
+      "label": "Pintu Gedung Bersama Outdoor Utara",
+      "category": "Pintu Outdoor"
     },
     "pintu_bersama_outdoor_timur": {
       "id": "pintu_bersama_outdoor_timur",
       "x": 5924.611448367665,
       "y": -3200.0930461093303,
-      "label": "Pintu Gedung Bersama Outdoor Timur"
+      "label": "Pintu Gedung Bersama Outdoor Timur",
+      "category": "Pintu Outdoor"
     },
     "pintu_lab_fisika_outdoor": {
       "id": "pintu_lab_fisika_outdoor",
       "x": 5856.688168162068,
       "y": -2380.1913359538144,
-      "label": "Pintu Utama Lab Fisika Outdoor"
+      "label": "Pintu Utama Lab Fisika Outdoor",
+      "category": "Pintu Outdoor"
     },
     "node_02": {
       "id": "node_02",
       "x": 3821.452237409363,
       "y": -2711.3942793128526,
-      "label": "Simpang 02"
+      "label": "Simpang 02",
+      "category": "Simpang"
     },
     "node_01": {
       "id": "node_01",
       "x": 3846.076991562451,
       "y": -2003.8430099807945,
-      "label": "Simpang 01"
+      "label": "Simpang 01",
+      "category": "Simpang"
     },
     "node_03": {
       "id": "node_03",
       "x": 3821.452237409362,
       "y": -3080.765591609172,
-      "label": "Simpang 03"
+      "label": "Simpang 03",
+      "category": "Simpang"
     },
     "node_04": {
       "id": "node_04",
       "x": 4031.9938854182633,
       "y": -3711.98012306666,
-      "label": "Simpang 04"
+      "label": "Simpang 04",
+      "category": "Simpang"
     },
     "node_05": {
       "id": "node_05",
       "x": 4370.173842454004,
       "y": -3701.7198088362056,
-      "label": "Simpang 05"
+      "label": "Simpang 05",
+      "category": "Simpang"
     },
     "node_06": {
       "id": "node_06",
       "x": 4389.986140544894,
       "y": -3884.783440194725,
-      "label": "Simpang 06"
+      "label": "Simpang 06",
+      "category": "Simpang"
     },
     "node_42": {
       "id": "node_42",
       "x": 4543.713694975413,
       "y": -3884.783440194725,
-      "label": "Simpang 42"
+      "label": "Simpang 42",
+      "category": "Simpang"
     },
     "node_07": {
       "id": "node_07",
       "x": 4996.449789342217,
       "y": -3879.7154988398725,
-      "label": "Simpang 07"
+      "label": "Simpang 07",
+      "category": "Simpang"
     },
     "node_08": {
       "id": "node_08",
       "x": 5874.892957516615,
       "y": -3872.9582437000695,
-      "label": "Simpang 08"
+      "label": "Simpang 08",
+      "category": "Simpang"
     },
     "node_11": {
       "id": "node_11",
       "x": 6332.696993238271,
       "y": -3921.9483434636413,
-      "label": "Simpang 11"
+      "label": "Simpang 11",
+      "category": "Simpang"
     },
     "node_12": {
       "id": "node_12",
       "x": 6343.677532840451,
       "y": -4071.452613431784,
-      "label": "Simpang 12"
+      "label": "Simpang 12",
+      "category": "Simpang"
     },
     "node_44": {
       "id": "node_44",
       "x": 6532.880676754935,
       "y": -4233.626736787056,
-      "label": "Simpang 44"
+      "label": "Simpang 44",
+      "category": "Simpang"
     },
     "node_43": {
       "id": "node_43",
       "x": 6926.490788648461,
       "y": -4254.743159098944,
-      "label": "Simpang 43"
+      "label": "Simpang 43",
+      "category": "Simpang"
     },
     "node_28": {
       "id": "node_28",
       "x": 7279.5573697031705,
       "y": -4281.772179658155,
-      "label": "Simpang 28"
+      "label": "Simpang 28",
+      "category": "Simpang"
     },
     "node_29": {
       "id": "node_29",
       "x": 7162.994718541568,
       "y": -4117.908742517931,
-      "label": "Simpang 29"
+      "label": "Simpang 29",
+      "category": "Simpang"
     },
     "node_27": {
       "id": "node_27",
       "x": 7308.27570404733,
       "y": -4521.654737121164,
-      "label": "Simpang 27"
+      "label": "Simpang 27",
+      "category": "Simpang"
     },
     "node_35": {
       "id": "node_35",
       "x": 7321.790214326931,
       "y": -4714.236508605551,
-      "label": "Simpang 35"
+      "label": "Simpang 35",
+      "category": "Simpang"
     },
     "node_36": {
       "id": "node_36",
       "x": 7446.799434413288,
       "y": -4839.245728691907,
-      "label": "Simpang 36"
+      "label": "Simpang 36",
+      "category": "Simpang"
     },
     "node_37": {
       "id": "node_37",
       "x": 7644.449147252527,
       "y": -4851.070925186563,
-      "label": "Simpang 37"
+      "label": "Simpang 37",
+      "category": "Simpang"
     },
     "node_38": {
       "id": "node_38",
       "x": 7693.439247016099,
       "y": -4812.216708132695,
-      "label": "Simpang 38"
+      "label": "Simpang 38",
+      "category": "Simpang"
     },
     "node_41": {
       "id": "node_41",
       "x": 7703.575129725804,
       "y": -4651.731898562372,
-      "label": "Simpang 41"
+      "label": "Simpang 41",
+      "category": "Simpang"
     },
     "node_26": {
       "id": "node_26",
       "x": 7914.739352844649,
       "y": -4430.43179273382,
-      "label": "Simpang 26"
+      "label": "Simpang 26",
+      "category": "Simpang"
     },
     "node_39": {
       "id": "node_39",
       "x": 7914.739352844647,
       "y": -4638.217388282762,
-      "label": "Simpang 39"
+      "label": "Simpang 39",
+      "category": "Simpang"
     },
     "node_40": {
       "id": "node_40",
       "x": 8261.048678759555,
       "y": -4340.898162131428,
-      "label": "Simpang 40"
+      "label": "Simpang 40",
+      "category": "Simpang"
     },
     "node_09": {
       "id": "node_09",
       "x": 5872.781315285411,
       "y": -3551.143967666944,
-      "label": "Simpang 09"
+      "label": "Simpang 09",
+      "category": "Simpang"
     },
     "node_10": {
       "id": "node_10",
       "x": 6411.672412684707,
       "y": -3551.143967666941,
-      "label": "Simpang 10"
+      "label": "Simpang 10",
+      "category": "Simpang"
     },
     "node_18": {
       "id": "node_18",
       "x": 6332.274664792021,
       "y": -3220.0384658165913,
-      "label": "Simpang 18"
+      "label": "Simpang 18",
+      "category": "Simpang"
     },
     "node_13": {
       "id": "node_13",
       "x": 5033.192364164881,
       "y": -2032.4508749962054,
-      "label": "Simpang 13"
+      "label": "Simpang 13",
+      "category": "Simpang"
     },
     "node_14": {
       "id": "node_14",
       "x": 5984.27602509216,
       "y": -2068.7711213726466,
-      "label": "Simpang 14"
+      "label": "Simpang 14",
+      "category": "Simpang"
     },
     "node_16": {
       "id": "node_16",
       "x": 5855.888177435902,
       "y": -2290.0712272011965,
-      "label": "Simpang 16"
+      "label": "Simpang 16",
+      "category": "Simpang"
     },
     "node_15": {
       "id": "node_15",
       "x": 5997.790535371767,
       "y": -2290.0712272011965,
-      "label": "Simpang 15"
+      "label": "Simpang 15",
+      "category": "Simpang"
     },
     "node_17": {
       "id": "node_17",
       "x": 6269.347726302325,
       "y": -2769.414013681178,
-      "label": "Simpang 17"
+      "label": "Simpang 17",
+      "category": "Simpang"
     },
     "node_20": {
       "id": "node_20",
       "x": 7715.6114904433,
       "y": -2710.2880312079,
-      "label": "Simpang 20"
+      "label": "Simpang 20",
+      "category": "Simpang"
     },
     "node_21": {
       "id": "node_21",
       "x": 7896.5792296561485,
       "y": -2721.9020634794365,
-      "label": "Simpang 21"
+      "label": "Simpang 21",
+      "category": "Simpang"
     },
     "node_22": {
       "id": "node_22",
       "x": 8001.316684323096,
       "y": -2859.581136952923,
-      "label": "Simpang 22"
+      "label": "Simpang 22",
+      "category": "Simpang"
     },
     "node_23": {
       "id": "node_23",
       "x": 8099.719212296479,
       "y": -3316.1181873358673,
-      "label": "Simpang 23"
+      "label": "Simpang 23",
+      "category": "Simpang"
     },
     "node_32": {
       "id": "node_32",
       "x": 8263.160320990468,
       "y": -3143.8081812708892,
-      "label": "Simpang 32"
+      "label": "Simpang 32",
+      "category": "Simpang"
     },
     "node_19": {
       "id": "node_19",
       "x": 6528.235063846032,
       "y": -2782.2950312914236,
-      "label": "Simpang 19"
+      "label": "Simpang 19",
+      "category": "Simpang"
     },
     "node_30": {
       "id": "node_30",
       "x": 8532.605869690113,
       "y": -2167.384813569346,
-      "label": "Simpang 30"
+      "label": "Simpang 30",
+      "category": "Simpang"
     },
     "node_31": {
       "id": "node_31",
       "x": 8534.295183475067,
       "y": -3095.662738399792,
-      "label": "Simpang 31"
+      "label": "Simpang 31",
+      "category": "Simpang"
     },
     "node_24": {
       "id": "node_24",
       "x": 8037.636930699538,
       "y": -3571.2045688634307,
-      "label": "Simpang 24"
+      "label": "Simpang 24",
+      "category": "Simpang"
     },
     "node_33": {
       "id": "node_33",
       "x": 8543.586409292293,
       "y": -3773.0775661650473,
-      "label": "Simpang 33"
+      "label": "Simpang 33",
+      "category": "Simpang"
     },
     "node_25": {
       "id": "node_25",
       "x": 8002.583669661808,
       "y": -3971.9942643429968,
-      "label": "Simpang 25"
+      "label": "Simpang 25",
+      "category": "Simpang"
     },
     "node_34": {
       "id": "node_34",
       "x": 8552.455306663278,
       "y": -4180.202188338178,
-      "label": "Simpang 34"
+      "label": "Simpang 34",
+      "category": "Simpang"
     },
     "node_koridor_syawal_selatan": {
       "id": "node_koridor_syawal_selatan",
       "x": 7062.480548336703,
       "y": -3855.85394162763,
-      "label": "Koridor Gedung Syawal Selatan"
+      "label": "Koridor Gedung Syawal Selatan",
+      "category": "Koridor"
     },
     "node_koridor_syawal_tenggara": {
       "id": "node_koridor_syawal_tenggara",
       "x": 7261.819574960893,
       "y": -3776.4561937349436,
-      "label": "Koridor Gedung Syawal Tenggara"
+      "label": "Koridor Gedung Syawal Tenggara",
+      "category": "Koridor"
     },
     "node_koridor_syawal_timur": {
       "id": "node_koridor_syawal_timur",
       "x": 7341.217322853579,
       "y": -3578.806480895704,
-      "label": "Koridor Gedung Syawal Timur"
+      "label": "Koridor Gedung Syawal Timur",
+      "category": "Koridor"
     },
     "node_koridor_syawal_timur_laut": {
       "id": "node_koridor_syawal_timur_laut",
       "x": 7261.819574960893,
       "y": -3379.467454271514,
-      "label": "Koridor Gedung Syawal Timur Laut"
+      "label": "Koridor Gedung Syawal Timur Laut",
+      "category": "Koridor"
     },
     "node_koridor_syawal_utara": {
       "id": "node_koridor_syawal_utara",
       "x": 7062.480548336703,
       "y": -3298.380392593877,
-      "label": "Koridor Gedung Syawal Utara"
+      "label": "Koridor Gedung Syawal Utara",
+      "category": "Koridor"
     },
     "node_koridor_syawal_barat_laut": {
       "id": "node_koridor_syawal_barat_laut",
       "x": 6871.588090637266,
       "y": -3379.4674542715115,
-      "label": "Koridor Gedung Syawal Barat Laut"
+      "label": "Koridor Gedung Syawal Barat Laut",
+      "category": "Koridor"
     },
     "node_koridor_syawal_barat": {
       "id": "node_koridor_syawal_barat",
       "x": 6790.501028959629,
       "y": -3575.4278533258002,
-      "label": "Koridor Gedung Syawal Barat"
+      "label": "Koridor Gedung Syawal Barat",
+      "category": "Koridor"
     },
     "node_koridor_syawal_barat_daya": {
       "id": "node_koridor_syawal_barat_daya",
       "x": 6869.898776852316,
       "y": -3773.07756616504,
-      "label": "Koridor Gedung Syawal Barat Daya"
+      "label": "Koridor Gedung Syawal Barat Daya",
+      "category": "Koridor"
     },
     "node_koridor_lab_matematika_1": {
       "id": "node_koridor_lab_matematika_1",
       "x": 4965.197484320327,
       "y": -4405.725578629103,
-      "label": "Koridor Lab Matematika 1"
+      "label": "Koridor Lab Matematika 1",
+      "category": "Koridor"
     },
     "node_koridor_lab_matematika_2": {
       "id": "node_koridor_lab_matematika_2",
       "x": 4546.247665652537,
       "y": -4405.725578629103,
-      "label": "Koridor Lab Matematika 2"
+      "label": "Koridor Lab Matematika 2",
+      "category": "Koridor"
     },
     "node_koridor_lab_biologi_lama_1": {
       "id": "node_koridor_lab_biologi_lama_1",
       "x": 4309.74373575943,
       "y": -4106.717038692818,
-      "label": "Koridor Lab Biologi Lama 1"
+      "label": "Koridor Lab Biologi Lama 1",
+      "category": "Koridor"
     },
     "node_koridor_lab_biologi_lama_2": {
       "id": "node_koridor_lab_biologi_lama_2",
       "x": 4286.093342770119,
       "y": -4405.725578629103,
-      "label": "Koridor Lab Biologi Lama 2"
+      "label": "Koridor Lab Biologi Lama 2",
+      "category": "Koridor"
     },
     "node_koridor_lab_biologi_baru_2": {
       "id": "node_koridor_lab_biologi_baru_2",
       "x": 4032.6962750275043,
       "y": -4402.346951059202,
-      "label": "Koridor Lab Biologi Baru 2"
+      "label": "Koridor Lab Biologi Baru 2",
+      "category": "Koridor"
     },
     "node_koridor_lab_biologi_baru_1": {
       "id": "node_koridor_lab_biologi_baru_1",
       "x": 4034.3855888124554,
       "y": -4111.784980047671,
-      "label": "Koridor Lab BIologi Baru 1"
+      "label": "Koridor Lab BIologi Baru 1",
+      "category": "Koridor"
     },
     "node_koridor_bersama_1": {
       "id": "node_koridor_bersama_1",
       "x": 4230.345987866742,
       "y": -3353.2830906047748,
-      "label": "Koridor Gedung Bersama 1"
+      "label": "Koridor Gedung Bersama 1",
+      "category": "Koridor"
     },
     "node_koridor_bersama_2": {
       "id": "node_koridor_bersama_2",
       "x": 4546.247665652535,
       "y": -3353.2830906047743,
-      "label": "Koridor Gedung Bersama 2"
+      "label": "Koridor Gedung Bersama 2",
+      "category": "Koridor"
     },
     "node_koridor_bersama_3": {
       "id": "node_koridor_bersama_3",
       "x": 5020.944839223701,
       "y": -3354.972404389725,
-      "label": "Koridor Gedung Bersama 3"
+      "label": "Koridor Gedung Bersama 3",
+      "category": "Koridor"
     },
     "node_koridor_bersama_4": {
       "id": "node_koridor_bersama_4",
       "x": 5022.63415300865,
       "y": -3156.4780346580114,
-      "label": "Koridor Gedung Bersama 4"
+      "label": "Koridor Gedung Bersama 4",
+      "category": "Koridor"
     },
     "node_koridor_bersama_5": {
       "id": "node_koridor_bersama_5",
       "x": 5925.5723710648335,
       "y": -3156.4780346580114,
-      "label": "Koridor Gedung Bersama 5"
+      "label": "Koridor Gedung Bersama 5",
+      "category": "Koridor"
     },
     "node_koridor_bersama_6": {
       "id": "node_koridor_bersama_6",
       "x": 5021.789496116174,
       "y": -2810.1687087431046,
-      "label": "Koridor Gedung Bersama 6"
+      "label": "Koridor Gedung Bersama 6",
+      "category": "Koridor"
     },
     "node_koridor_bersama_7": {
       "id": "node_koridor_bersama_7",
       "x": 4219.36544826456,
       "y": -2810.1687087431046,
-      "label": "Koridor Gedung Bersama 7"
+      "label": "Koridor Gedung Bersama 7",
+      "category": "Koridor"
     },
     "node_parkir_lab_fisika": {
       "id": "node_parkir_lab_fisika",
       "x": 6073.387327248025,
       "y": -2386.9956056129377,
-      "label": "Area Parkir Lab Fisika"
+      "label": "Area Parkir Lab Fisika",
+      "category": "Parkir"
     }
   }
 };

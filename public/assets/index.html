@@ -4,6 +4,12 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <meta
         name="description"
         content="FMIPA Map — Sistem pencarian rute terpendek di Fakultas Matematika dan Ilmu Pengetahuan Alam Universitas Negeri Medan."
@@ -13,8 +19,11 @@
         FMIPA Map — Universitas Negeri Medan
     </title>
 
+    <link
+        rel="stylesheet"
+        href="../output.css"
+    >
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-    <link rel="stylesheet" href="../output.css">
     <style>
         /* ===== LAYOUT GRID UTAMA ===== */
 #fmipa-map-legend-container {
@@ -1448,14 +1457,14 @@
                                 type="button"
                                 class="flex-1 bg-[#C54F2D] hover:bg-[#a84022] text-white font-bold py-2.5 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 transition shadow-sm active:scale-95"
                             >
-                                <span>📍</span> Jadikan Titik Awal
+                                Jadikan Titik Awal
                             </button>
                             <button
                                 id="btn-set-tujuan"
                                 type="button"
                                 class="flex-1 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold py-2.5 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 transition shadow-sm active:scale-95"
                             >
-                                <span>🎯</span> Jadikan Tujuan
+                                Jadikan Tujuan
                             </button>
                         </div>
                     </div>

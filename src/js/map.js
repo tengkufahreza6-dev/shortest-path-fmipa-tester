@@ -252,21 +252,26 @@ export function createUserPin(lat, lng) {
 }).addTo(userPinLayer);
 
   marker.bindPopup(`
-    <div style="font-family: inherit; font-size: 12px; min-width: 200px;">
-      <strong style="color: #292524; font-size: 13px; display: block; margin-bottom: 4px;">
-        📍 Titik Penanda #${userPinIdCounter}
-      </strong>
-      <div style="font-family: monospace; font-size: 11px; color: #475569; background: #f1f5f9; padding: 4px 6px; border-radius: 4px; margin-bottom: 6px;">
-        X: ${pos.x.toFixed(2)}<br>
-        Y: ${pos.y.toFixed(2)}
-      </div>
-      <button id="btn-delete-${pinId}" style="
-        width: 100%; background: #ef4444; color: white;
-        border: none; padding: 6px 10px; border-radius: 6px;
-        font-size: 11px; font-weight: bold; cursor: pointer;
-      ">🗑️ Hapus</button>
+  <div style="font-family: inherit; font-size: 12px; min-width: 200px;">
+    <strong style="color: #292524; font-size: 13px; display: block; margin-bottom: 4px;">
+      Titik Penanda #${userPinIdCounter}
+    </strong>
+    <span style="font-size: 10px; background: #fee2e2; color: #991b1b; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 6px; font-weight: 600;">
+      Pin Manual
+    </span>
+    <div style="font-family: monospace; font-size: 11px; color: #475569; background: #f1f5f9; padding: 6px 8px; border-radius: 4px; line-height: 1.5; margin-bottom: 8px;">
+      X: ${pos.x.toFixed(2)}<br>
+      Y: ${pos.y.toFixed(2)}
     </div>
-  `);
+    <button id="btn-delete-${pinId}" style="
+      width: 100%; background: #ef4444; color: white;
+      border: none; padding: 6px 10px; border-radius: 6px;
+      font-size: 11px; font-weight: bold; cursor: pointer;
+    ">Hapus</button>
+  </div>
+`);
+
+marker.bindTooltip(`Titik #${userPinIdCounter}`, { direction: 'top', offset: [0, -12] });
 
   marker.on('popupopen', () => {
     const btnDel = document.getElementById(`btn-delete-${pinId}`);
@@ -311,21 +316,32 @@ const marker = L.circleMarker(latLng, {
 }).addTo(neutralMarkersLayer);
 
     const popupHtml = `
-      <div style="font-family: inherit; font-size: 12px; min-width: 190px;">
-        <strong style="color: #1e293b; font-size: 13px; display: block; margin-bottom: 2px;">
-          ${node.label || key}
-        </strong>
-        <span style="font-size: 10px; background: #f1f5f9; color: #475569; padding: 1px 6px; border-radius: 4px;">
-          ${node.category || 'Gedung FMIPA'}
-        </span>
-        <div style="display: flex; gap: 6px; margin-top: 8px;">
-          <button id="popup-set-asal-${key}" style="flex:1; background: #dc2626; color:#fff; border:none; padding:6px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer;">📍 Set Awal</button>
-          <button id="popup-set-tujuan-${key}" style="flex:1; background: #2563eb; color:#fff; border:none; padding:6px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer;">🎯 Set Tujuan</button>
-        </div>
-      </div>
-    `;
+  <div style="font-family: inherit; font-size: 12px; min-width: 200px;">
+    <strong style="color: #1e293b; font-size: 13px; display: block; margin-bottom: 4px;">
+      ${node.label || key}
+    </strong>
+    <span style="font-size: 10px; background: #e2e8f0; color: #475569; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 6px; font-weight: 600;">
+      ${node.category || 'Gedung FMIPA'}
+    </span>
+    <div style="font-family: monospace; font-size: 11px; color: #475569; background: #f1f5f9; padding: 6px 8px; border-radius: 4px; line-height: 1.5; margin-bottom: 8px;">
+      X: ${node.x.toFixed(2)}<br>
+      Y: ${node.y.toFixed(2)}
+    </div>
+    <div style="display: flex; gap: 6px;">
+      <button id="popup-set-asal-${key}" style="flex:1; background: #dc2626; color:#fff; border:none; padding:6px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer;">
+        Set Awal
+      </button>
+      <button id="popup-set-tujuan-${key}" style="flex:1; background: #2563eb; color:#fff; border:none; padding:6px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer;">
+        Set Tujuan
+      </button>
+    </div>
+  </div>
+`;
 
-    marker.bindPopup(popupHtml);
+marker.bindPopup(popupHtml);
+
+// Tooltip hover
+marker.bindTooltip(node.label || key, { direction: 'top', offset: [0, -14] });
 
     marker.on('popupopen', () => {
       const btnAsal = document.getElementById(`popup-set-asal-${key}`);
@@ -517,18 +533,32 @@ export function drawRoute(steps = []) {
   });
   routeCoreLayer.addLayer(dashLine);
 
-  // 4. Zoom peta ke bounds rute
-  const routeBounds = L.polyline(polylineCoords).getBounds();
-  mapInstance.fitBounds(routeBounds, {
-    padding: [120, 120],
-    maxZoom: -2,
-    animate: true,
-  });
-
-  // 5. Setelah zoom selesai, baru animasi garis
-  mapInstance.once('moveend', () => {
+  // 4. Flag agar animasi hanya jalan sekali
+  let animationStarted = false;
+  const startOnce = () => {
+    if (animationStarted) return;
+    animationStarted = true;
     startRouteAnimation(polylineCoords, coreLine, dashLine, steps);
-  });
+  };
+
+  // 5. Kalau peta perlu bergerak, tunggu moveend
+  const routeBounds = L.polyline(polylineCoords).getBounds();
+  const currentBounds = mapInstance.getBounds();
+  const needsMove = !currentBounds.equals(routeBounds, 0.0001);
+
+  if (needsMove) {
+    mapInstance.fitBounds(routeBounds, {
+      padding: [120, 120],
+      maxZoom: -2,
+      animate: true,
+    });
+    mapInstance.once('moveend', startOnce);
+    // FALLBACK: kalau moveend tidak trigger dalam 800ms, paksa start
+    setTimeout(startOnce, 800);
+  } else {
+    // Peta sudah di posisi yang tepat → langsung animasi
+    startOnce();
+  }
 }
 
 // =====================================================================
@@ -563,7 +593,9 @@ function renderRouteMarkers(steps) {
     const isStart = idx === 0;
     const isEnd = idx === steps.length - 1;
 
-    // Waypoint biasa (dot kuning)
+    // =========================================================
+    // 1. WAYPOINT BIASA (dot kuning)
+    // =========================================================
     if (!isStart && !isEnd && !step.isBuilding) {
       const dot = L.circleMarker(latLng, {
         radius: 5,
@@ -573,11 +605,33 @@ function renderRouteMarkers(steps) {
         opacity: 1,
         fillOpacity: 1,
       });
+
+      const category = step.category || 'Jalur';
+      const nama = step.name || step.id;
+
+      dot.bindPopup(`
+        <div style="font-family: inherit; font-size: 12px; min-width: 200px;">
+          <strong style="color: #1e293b; font-size: 13px; display: block; margin-bottom: 4px;">
+            ${nama}
+          </strong>
+          <span style="font-size: 10px; background: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 6px; font-weight: 600;">
+            ${category}
+          </span>
+          <div style="font-family: monospace; font-size: 11px; color: #475569; background: #f1f5f9; padding: 6px 8px; border-radius: 4px; line-height: 1.5;">
+            X: ${step.x.toFixed(2)}<br>
+            Y: ${step.y.toFixed(2)}
+          </div>
+        </div>
+      `);
+
+      dot.bindTooltip(nama, { direction: 'top', offset: [0, -8] });
       routeMarkersLayer.addLayer(dot);
       return;
     }
 
-    // Marker asal / tujuan
+    // =========================================================
+    // 2. MARKER ASAL / TUJUAN (merah/biru)
+    // =========================================================
     let color = '#eab308';
     if (isStart) color = '#dc2626';
     else if (isEnd) color = '#2563eb';
@@ -591,9 +645,27 @@ function renderRouteMarkers(steps) {
       fillOpacity: 1,
     });
 
-    // Popup dengan label nama
-    pin.bindPopup(`<strong>${step.name || step.id}</strong>`);
+    const label = step.name || step.id;
+    const tipeLabel = isStart ? 'Titik Awal' : 'Titik Tujuan';
+    const tipeBg = isStart ? '#fee2e2' : '#dbeafe';
+    const tipeColor = isStart ? '#991b1b' : '#1e40af';
 
+    pin.bindPopup(`
+      <div style="font-family: inherit; font-size: 12px; min-width: 210px;">
+        <strong style="color: #1e293b; font-size: 13px; display: block; margin-bottom: 4px;">
+          ${label}
+        </strong>
+        <span style="font-size: 10px; background: ${tipeBg}; color: ${tipeColor}; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 6px; font-weight: 600;">
+          ${tipeLabel}
+        </span>
+        <div style="font-family: monospace; font-size: 11px; color: #475569; background: #f1f5f9; padding: 6px 8px; border-radius: 4px; line-height: 1.5;">
+          X: ${step.x.toFixed(2)}<br>
+          Y: ${step.y.toFixed(2)}
+        </div>
+      </div>
+    `);
+
+    pin.bindTooltip(label, { direction: 'top', offset: [0, -12] });
     routeMarkersLayer.addLayer(pin);
   });
 }

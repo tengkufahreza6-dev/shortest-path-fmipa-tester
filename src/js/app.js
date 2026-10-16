@@ -123,17 +123,27 @@ export function handleCariRute() {
 
   // Delay kecil untuk visual feedback (50ms) lalu hitung rute
   setTimeout(() => {
-    try {
-      const result = findShortestPath(asalId, tujuanId);
+  try {
+    const result = findShortestPath(asalId, tujuanId);
 
-      if (!result || !result.found || result.path.length === 0) {
-        showToast('Rute antara kedua gedung belum terhubung dalam graf.', 'error');
-        clearRoute();
-        if (panelHasil) panelHasil.classList.add('hidden');
-        return;
-      }
+    if (!result || !result.found || result.path.length === 0) {
+      showToast('Rute antara kedua gedung belum terhubung dalam graf.', 'error');
+      clearRoute();
+      if (panelHasil) panelHasil.classList.add('hidden');
+      return;
+    }
 
-      drawRoute(result.steps);
+    drawRoute(result.steps);
+
+    // ✅ FIX: Setelah rute ditemukan, PAKSA panel ke gedung TUJUAN
+    if (tujuanId && graphData.nodes[tujuanId]) {
+      updateBuildingInfoPanel(
+        graphData.nodes[tujuanId],
+        tujuanId,
+        setGedungAsal,
+        setGedungTujuan
+      );
+    }
 
       if (panelHasil) {
         panelHasil.classList.remove('hidden');
@@ -194,6 +204,12 @@ export function handleTukarRute() {
   selectAsal.value = selectTujuan.value;
   selectTujuan.value = temp;
 
+  // Update highlight dulu
+  const asalId = DROPDOWN_TO_NODE_ID[selectAsal.value] || null;
+  const tujuanId = DROPDOWN_TO_NODE_ID[selectTujuan.value] || null;
+  updateSelectionHighlight(asalId, tujuanId);
+
+  // Baru cari rute
   if (selectAsal.value && selectTujuan.value) {
     handleCariRute();
   }
@@ -328,7 +344,10 @@ function performGlobalSearch(keyword) {
   if (clearBtn) clearBtn.classList.remove('hidden');
 
   // Cari ruangan
-  const results = cariRuangan(query).slice(0, 12);
+  const allResults = cariRuangan(query);
+const MAX_SHOWN = 50;
+const results = allResults.slice(0, MAX_SHOWN);
+const totalFound = allResults.length;
 
   if (results.length === 0) {
     resultsEl.innerHTML = `
@@ -373,17 +392,25 @@ function performGlobalSearch(keyword) {
         </div>
         <div class="search-result-actions">
           <button class="btn-set-awal" data-node-id="${nodeId}" data-dropdown="${NODE_ID_TO_DROPDOWN[nodeId] || ''}">
-            📍 Jadikan Awal
+            Jadikan Awal
           </button>
           <button class="btn-set-tujuan" data-node-id="${nodeId}" data-dropdown="${NODE_ID_TO_DROPDOWN[nodeId] || ''}">
-            🎯 Jadikan Tujuan
+            Jadikan Tujuan
           </button>
         </div>
       </div>
     `;
   }).join('');
 
-  resultsEl.innerHTML = html;
+  // Indikator "X hasil lainnya"
+const moreIndicator = totalFound > MAX_SHOWN ? `
+  <div style="padding: 14px 16px; text-align: center; font-size: 12px; color: #78716c; background: #faf6ec; border-top: 1px dashed #E4D5B6;">
+    Menampilkan <strong>${MAX_SHOWN}</strong> dari <strong>${totalFound}</strong> hasil.<br>
+    <span style="font-size: 11px;">Persempit pencarian untuk hasil lebih spesifik.</span>
+  </div>
+` : '';
+
+resultsEl.innerHTML = html + moreIndicator;
   positionSearchDropdown();
   resultsEl.classList.remove('hidden');
 
@@ -470,9 +497,10 @@ async function handleExportMap() {
   }
 
   if (typeof htmlToImage === 'undefined') {
-    showToast('Library export belum termuat. Coba refresh.', 'error');
-    return;
-  }
+  console.error('[handleExportMap] html-to-image tidak termuat. Cek koneksi ke unpkg.com');
+  showToast('Library export belum termuat. Coba refresh.', 'error');
+  return;
+}
 
   // Loading state
   const originalHTML = btnExport ? btnExport.innerHTML : '';
@@ -646,7 +674,15 @@ if (btnRestart) {
 
 const btnResetMap = document.getElementById('btn-reset-map');
 if (btnResetMap) {
-  btnResetMap.onclick = handleResetMap;   // ← mundur 1 langkah
+  btnResetMap.onclick = () => {
+    handleResetMap();
+    // Reset dropdown & panel
+    const selectAsal = document.getElementById('select-asal');
+    const selectTujuan = document.getElementById('select-tujuan');
+    if (selectAsal) selectAsal.value = '';
+    if (selectTujuan) selectTujuan.value = '';
+    resetBuildingInfoPanel();
+  };
 }
 
 const btnExport = document.getElementById('btn-export-map');
@@ -663,18 +699,22 @@ if (btnExport) {
   const selectTujuan = document.getElementById('select-tujuan');
   if (selectAsal) {
   selectAsal.addEventListener('change', () => {
-    const asalVal = selectAsal.value;
-    const asalId = DROPDOWN_TO_NODE_ID[asalVal] || null;
-    
-    const tujuanVal = selectTujuan?.value;
-    const tujuanId = DROPDOWN_TO_NODE_ID[tujuanVal] || null;
+  const asalId = DROPDOWN_TO_NODE_ID[selectAsal.value] || null;
+  const tujuanId = DROPDOWN_TO_NODE_ID[selectTujuan?.value] || null;
+
+  updateSelectionHighlight(asalId, tujuanId);
 
     console.log(`🔄 [select-asal change] asal=${asalId}, tujuan=${tujuanId}`);
     updateSelectionHighlight(asalId, tujuanId);
 
-    // Update panel info gedung
-    if (asalId && graphData.nodes[asalId]) {
-      updateBuildingInfoPanel(graphData.nodes[asalId], asalId, setGedungAsal, setGedungTujuan);
+    const focusId = tujuanId || asalId;
+    if (focusId && graphData.nodes[focusId]) {
+      updateBuildingInfoPanel(
+        graphData.nodes[focusId],
+        focusId,
+        setGedungAsal,
+        setGedungTujuan
+      );
     }
   });
 }
@@ -694,12 +734,17 @@ if (searchInput) {
 
   // Reposisi dropdown saat resize/scroll
   window.addEventListener('resize', positionSearchDropdown);
-  window.addEventListener('scroll', () => {
+  let scrollRAF = null;
+window.addEventListener('scroll', () => {
+  if (scrollRAF) return;
+  scrollRAF = requestAnimationFrame(() => {
     const resultsEl = document.getElementById('search-results');
     if (resultsEl && !resultsEl.classList.contains('hidden')) {
       positionSearchDropdown();
     }
-  }, true);
+    scrollRAF = null;
+  });
+}, true);
 
   // Klik di luar → tutup hasil
   document.addEventListener('click', (e) => {
